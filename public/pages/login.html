@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>login</title>
+	</head>
+	<br>
+		<h1>Login</h1>
+		<br>
+			<label for="username">Username:</label><br />
+			<input type="text" id="username" name="username" /><br />
+
+			<label for="password">Password:</label><br />
+			<input type="password" id="password" />
+			<input type="checkbox" onclick="showPassword()" />Show Password<br />
+			<script>
+				function showPassword() {
+					const hidden = document.getElementById('password');
+					if (hidden.type === 'password') {
+						hidden.type = 'text';
+					} else {
+						hidden.type = 'password';
+					}
+				};
+			</script>
+            <br />
+			<a href="forgotPassword.html" >Forgot Password</a><br />
+			<br />
+			<input type="submit" value="Submit" /><br />
+			<br />
+			<a href="../index.html">Return to Homepage</a>
+
+		</form>
+	</body>
+</html>
