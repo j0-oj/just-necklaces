@@ -101,7 +101,7 @@ export const loginUser = async (req, res, next) => {
 	}
 };
 
-export const updateUsername = async (req, res, next) => {
+export const updateUser = async (req, res, next) => {
 	const userID = req.params.id;
 
 	const user = users.find((user) => user.id === userID);
@@ -111,6 +111,19 @@ export const updateUsername = async (req, res, next) => {
 			.json({ error: `User with the id ${userID} was not found` });
 	}
 
-	user.username = req.body.username;
-	res.status(200).json(user);
+	for (const key in req.body) {
+		if (key === 'password') {
+			const hashedPassword = await bcrypt.hash(req.body[key], saltRounds);
+			user[key] = hashedPassword;
+		} else if (user.hasOwnProperty(key)) {
+			user[key] = req.body[key];
+		}
+	}
+
+	const { password, ...userWithoutPassword } = user;
+
+	res.status(200).json({
+		message: 'User updated successfully',
+		user: userWithoutPassword,
+	});
 };
